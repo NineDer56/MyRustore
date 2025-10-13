@@ -11,6 +11,10 @@ class NavigationState(
     fun navigateTo(route: String) {
         navHostController.navigate(route)
     }
+
+    fun navigateToAppCardById(appId : Int){
+        navHostController.navigate(Screens.AppCard.getRoute(appId))
+    }
 }
 
 

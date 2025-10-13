@@ -35,7 +35,7 @@ import com.example.myrustore.ui.theme.MyRustoreTheme
 fun AppsList(
     apps : List<AppItem>,
     contentPadding : PaddingValues = PaddingValues(),
-    onAppClick : () -> Unit
+    onAppClick : (appId : Int) -> Unit
 ) {
    LazyColumn(
        verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -56,12 +56,12 @@ fun AppsList(
 @Composable
 fun ApplicationItem(
     appItem : AppItem,
-    onAppClick : () -> Unit
+    onAppClick : (appId : Int) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onAppClick)
+            .clickable(onClick = {onAppClick(appItem.appId)})
         ,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -86,7 +86,7 @@ fun ApplicationItem(
                 fontSize = 12.sp
             )
             Text(
-                text = appItem.appCategory,
+                text = appItem.appCategory + " " + appItem.appId,
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp
             )

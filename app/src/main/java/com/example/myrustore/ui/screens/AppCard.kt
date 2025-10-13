@@ -63,7 +63,7 @@ fun AppCard(
             Spacer(modifier = Modifier.width(16.dp))
 
             AboutApp(
-                appCategory = appItem.appCategory,
+                appCategory = appItem.appCategory + " " + appItem.appId,
                 appName = appItem.appName,
                 developerName = appItem.developerName,
                 ageRestrictions = appItem.ageRestrictions,
