@@ -1,6 +1,7 @@
 package com.example.myrustore.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,12 +19,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.myrustore.ui.AppItem
+import com.example.myrustore.ui.navigation.AppNavGraph
+import com.example.myrustore.ui.navigation.Screens
+import com.example.myrustore.ui.navigation.rememberNavigationState
 import com.example.myrustore.ui.theme.MyRustoreTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
+
+    val navigationState = rememberNavigationState()
+
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -55,9 +63,22 @@ fun MainScreen() {
                 this.add(it, AppItem(it))
             }
         }
-        AppsList(
-            apps = listOfItems,
-            contentPadding = paddingValues
+
+        AppNavGraph(
+            modifier = Modifier
+                .padding(paddingValues)
+                .consumeWindowInsets(paddingValues),
+            navController = navigationState.navHostController,
+            appsFeed = {
+                AppsList(
+                    apps = listOfItems,
+                    onAppClick = {
+                        navigationState.navigateTo(Screens.ROUTE_APP_CARD)
+                    })
+            },
+            appCard = {
+                AppCard(listOfItems[0])
+            }
         )
     }
 }

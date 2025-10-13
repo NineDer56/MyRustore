@@ -1,6 +1,7 @@
 package com.example.myrustore.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,7 +34,8 @@ import com.example.myrustore.ui.theme.MyRustoreTheme
 @Composable
 fun AppsList(
     apps : List<AppItem>,
-    contentPadding : PaddingValues = PaddingValues()
+    contentPadding : PaddingValues = PaddingValues(),
+    onAppClick : () -> Unit
 ) {
    LazyColumn(
        verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -44,7 +46,7 @@ fun AppsList(
            items =  apps,
            key = {it.appId}
        ) {
-            ApplicationItem(it)
+            ApplicationItem(it, onAppClick)
 
        }
    }
@@ -53,11 +55,14 @@ fun AppsList(
 
 @Composable
 fun ApplicationItem(
-    appItem : AppItem
+    appItem : AppItem,
+    onAppClick : () -> Unit
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable(onClick = onAppClick)
+        ,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -102,7 +107,8 @@ fun PreviewAppsList() {
                 AppItem(1),
                 AppItem(2),
                 AppItem(3),
-            )
+            ),
+            onAppClick = {}
         )
     }
 }
