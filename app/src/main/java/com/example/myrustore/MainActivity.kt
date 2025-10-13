@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.myrustore.ui.AppItem
 import com.example.myrustore.ui.screens.AppCard
+import com.example.myrustore.ui.screens.MainScreen
 import com.example.myrustore.ui.theme.MyRustoreTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,17 +32,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyRustoreTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppCard(
-                        AppItem(0),
-                        paddingValues = PaddingValues(
-                            top = innerPadding.calculateTopPadding() + 16.dp,
-                            bottom = innerPadding.calculateBottomPadding() + 16.dp,
-                            start = innerPadding.calculateStartPadding(LayoutDirection.Ltr) + 12.dp,
-                            end = innerPadding.calculateEndPadding(LayoutDirection.Ltr) + 12.dp
-                        )
-                    )
-                }
+                MainScreen()
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    AppCard(
+//                        AppItem(0),
+//                        paddingValues = PaddingValues(
+//                            top = innerPadding.calculateTopPadding() + 16.dp,
+//                            bottom = innerPadding.calculateBottomPadding() + 16.dp,
+//                            start = innerPadding.calculateStartPadding(LayoutDirection.Ltr) + 12.dp,
+//                            end = innerPadding.calculateEndPadding(LayoutDirection.Ltr) + 12.dp
+//                        )
+//                    )
+//                }
             }
         }
     }
