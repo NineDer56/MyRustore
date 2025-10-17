@@ -1,4 +1,4 @@
-package com.example.myrustore.ui.navigation
+package com.example.myrustore.presentation.navigation
 
 sealed class Screens(
     val route : String

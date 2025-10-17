@@ -1,4 +1,4 @@
-package com.example.myrustore.ui.navigation
+package com.example.myrustore.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

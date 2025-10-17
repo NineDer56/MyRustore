@@ -1,4 +1,4 @@
-package com.example.myrustore.ui
+package com.example.myrustore.domain
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
