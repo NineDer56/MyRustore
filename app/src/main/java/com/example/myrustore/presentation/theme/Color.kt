@@ -1,4 +1,4 @@
-package com.example.myrustore.ui.theme
+package com.example.myrustore.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

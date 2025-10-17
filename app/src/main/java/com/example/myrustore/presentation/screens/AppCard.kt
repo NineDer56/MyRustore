@@ -1,4 +1,4 @@
-package com.example.myrustore.ui.screens
+package com.example.myrustore.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,8 +31,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myrustore.ui.AppItem
-import com.example.myrustore.ui.theme.MyRustoreTheme
+import com.example.myrustore.domain.AppItem
+import com.example.myrustore.presentation.theme.MyRustoreTheme
 
 @Composable
 fun AppCard(
@@ -63,7 +63,7 @@ fun AppCard(
             Spacer(modifier = Modifier.width(16.dp))
 
             AboutApp(
-                appCategory = appItem.appCategory,
+                appCategory = appItem.appCategory + " " + appItem.appId,
                 appName = appItem.appName,
                 developerName = appItem.developerName,
                 ageRestrictions = appItem.ageRestrictions,
