@@ -1,6 +1,8 @@
 package com.example.myrustore.domain
 
-class LoadAppsUseCase(
+import javax.inject.Inject
+
+class LoadAppsUseCase @Inject constructor(
     private val repository: AppsRepository
 ) {
     operator fun invoke() : List<AppItem>{

@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -45,7 +46,7 @@ fun MainScreen() {
     val destination = navBackStackEntry.value?.destination?.route
     Log.d("MainScreen", "destination: " + destination.toString())
 
-    val appViewModel: AppViewModel = viewModel()
+    val appViewModel: AppViewModel = hiltViewModel()
     val appState by appViewModel.appState.collectAsStateWithLifecycle()
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()

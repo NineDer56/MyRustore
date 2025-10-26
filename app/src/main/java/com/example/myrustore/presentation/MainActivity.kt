@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myrustore.presentation.screens.MainScreen
 import com.example.myrustore.presentation.theme.MyRustoreTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,34 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyRustoreTheme {
                 MainScreen()
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    AppCard(
-//                        AppItem(0),
-//                        paddingValues = PaddingValues(
-//                            top = innerPadding.calculateTopPadding() + 16.dp,
-//                            bottom = innerPadding.calculateBottomPadding() + 16.dp,
-//                            start = innerPadding.calculateStartPadding(LayoutDirection.Ltr) + 12.dp,
-//                            end = innerPadding.calculateEndPadding(LayoutDirection.Ltr) + 12.dp
-//                        )
-//                    )
-//                }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyRustoreTheme {
-        Greeting("Android")
     }
 }

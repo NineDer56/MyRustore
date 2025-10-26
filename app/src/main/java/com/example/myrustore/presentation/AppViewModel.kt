@@ -1,21 +1,22 @@
 package com.example.myrustore.presentation
 
 import androidx.lifecycle.ViewModel
-import com.example.myrustore.data.AppsRepositoryImpl
-import com.example.myrustore.domain.AppItem
-import com.example.myrustore.domain.AppsRepository
 import com.example.myrustore.domain.LoadAppsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class AppViewModel : ViewModel() {
+
+@HiltViewModel
+class AppViewModel @Inject constructor(
+    private val loadAppsUseCase : LoadAppsUseCase
+) : ViewModel() {
 
     private val _appState =
         MutableStateFlow<AppState>(AppState.Initial)
     val appState = _appState.asStateFlow()
 
-    private val repository = AppsRepositoryImpl()
-    private val loadAppsUseCase = LoadAppsUseCase(repository)
 
     init {
         loadApps()
