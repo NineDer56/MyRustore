@@ -1,9 +1,10 @@
 package com.example.myrustore.data
 
 import com.example.myrustore.domain.AppItem
+import javax.inject.Inject
 
-class Mapper {
-    fun AppItemDtoToEntity(dto: AppItemDto): AppItem {
+class Mapper() {
+    fun appItemDtoToEntity(dto: AppItemDto): AppItem {
         return AppItem(
             appId = dto.appId,
             appImage = dto.appImage,
