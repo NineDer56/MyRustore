@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.ui.graphics.vector.ImageVector
 
-data class AppItem(
+data class AppDetails(
     val appId : Int,
     val appImage : ImageVector = Icons.Default.AccountBox,
     val appCategory : String = "Игры",
@@ -23,5 +23,4 @@ data class AppItem(
         Icons.Default.Favorite,
         Icons.Default.MailOutline
     )
-    //TODO
 )

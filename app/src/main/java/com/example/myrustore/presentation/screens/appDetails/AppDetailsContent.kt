@@ -1,15 +1,13 @@
-package com.example.myrustore.presentation.screens
+package com.example.myrustore.presentation.screens.appDetails
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -31,29 +29,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myrustore.domain.AppItem
+import com.example.myrustore.domain.AppDetails
 import com.example.myrustore.presentation.theme.MyRustoreTheme
 
 @Composable
-fun AppCard(
-    appItem: AppItem,
-    paddingValues: PaddingValues = PaddingValues(
-        vertical = 16.dp,
-        horizontal = 12.dp
-    )
+fun AppDetailsContent(
+    appDetails: AppDetails,
+    onReadMoreClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(paddingValues)
-
+        modifier = modifier
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                imageVector = appItem.appImage,
+                imageVector = appDetails.appImage,
                 contentDescription = null,
                 modifier = Modifier
                     .size(172.dp)
@@ -63,11 +55,11 @@ fun AppCard(
             Spacer(modifier = Modifier.width(16.dp))
 
             AboutApp(
-                appCategory = appItem.appCategory + " " + appItem.appId,
-                appName = appItem.appName,
-                developerName = appItem.developerName,
-                ageRestrictions = appItem.ageRestrictions,
-                applicationSize = appItem.applicationSize,
+                appCategory = appDetails.appCategory + " " + appDetails.appId,
+                appName = appDetails.appName,
+                developerName = appDetails.developerName,
+                ageRestrictions = appDetails.ageRestrictions,
+                applicationSize = appDetails.applicationSize,
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -76,11 +68,14 @@ fun AppCard(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        ScreenShots(appItem.screenshots)
+        ScreenShots(appDetails.screenshots)
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        AboutApp(appItem.appDescription)
+        AboutApp(
+            appDescription = appDetails.appDescription,
+            onReadMoreClick = onReadMoreClick
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
         Spacer(
@@ -91,7 +86,7 @@ fun AppCard(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        AboutDeveloper(appItem.developerName)
+        AboutDeveloper(appDetails.developerName)
 
     }
 }
@@ -125,7 +120,8 @@ private fun AboutDeveloper(developerName: String) {
 
 @Composable
 private fun AboutApp(
-    appDescription: String
+    appDescription: String,
+    onReadMoreClick: () -> Unit
 ) {
     Text(
         text = "Описание приложения",
@@ -146,7 +142,9 @@ private fun AboutApp(
     Text(
         text = "Читать подробнее",
         fontSize = 14.sp,
-        color = MaterialTheme.colorScheme.primary
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier
+            .clickable { onReadMoreClick() }
     )
 }
 
@@ -263,6 +261,9 @@ private fun PreviewAppCard() {
     MyRustoreTheme(
         darkTheme = true
     ) {
-        AppCard(AppItem(0))
+        AppDetailsContent(
+            appDetails = AppDetails(0),
+            onReadMoreClick = {}
+        )
     }
 }

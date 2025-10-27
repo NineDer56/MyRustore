@@ -1,4 +1,4 @@
-package com.example.myrustore.presentation.screens
+package com.example.myrustore.presentation.screens.appList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,19 +24,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myrustore.domain.AppDetails
 import com.example.myrustore.domain.AppItem
 import com.example.myrustore.presentation.theme.MyRustoreTheme
 
 @Composable
-fun AppsList(
+fun AppListContent(
     apps : List<AppItem>,
-    contentPadding : PaddingValues = PaddingValues(),
-    onAppClick : (appId : Int) -> Unit
+    onAppClick : (appId : Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
    LazyColumn(
        verticalArrangement = Arrangement.spacedBy(8.dp),
-       contentPadding = contentPadding,
-       modifier = Modifier.padding(horizontal = 8.dp)
+       modifier = modifier
    ) {
        items(
            items =  apps,
@@ -51,18 +51,18 @@ fun AppsList(
 
 @Composable
 fun ApplicationItem(
-    appItem : AppItem,
+    appDetails : AppItem,
     onAppClick : (appId : Int) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = {onAppClick(appItem.appId)})
+            .clickable(onClick = {onAppClick(appDetails.appId)})
         ,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = appItem.appImage,
+            imageVector = appDetails.appImage,
             contentDescription = null,
             modifier = Modifier
                 .clip(RoundedCornerShape(18.dp))
@@ -72,17 +72,17 @@ fun ApplicationItem(
         Spacer(modifier = Modifier.width(8.dp))
         Column{
             Text(
-                text = appItem.appName,
+                text = appDetails.appName,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 16.sp
             )
             Text(
-                text = appItem.appShortDescription,
+                text = appDetails.appShortDescription,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 12.sp
             )
             Text(
-                text = appItem.appCategory + " " + appItem.appId,
+                text = appDetails.appCategory + " " + appDetails.appId,
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp
             )
@@ -97,7 +97,7 @@ fun PreviewAppsList() {
     MyRustoreTheme(
         darkTheme = true
     ) {
-        AppsList(
+        AppListContent(
             listOf(
                 AppItem(0),
                 AppItem(1),

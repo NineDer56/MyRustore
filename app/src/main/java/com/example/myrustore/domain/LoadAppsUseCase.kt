@@ -5,7 +5,7 @@ import javax.inject.Inject
 class LoadAppsUseCase @Inject constructor(
     private val repository: AppsRepository
 ) {
-    operator fun invoke() : List<AppItem>{
+    operator fun invoke() : List<AppDetails>{
         return repository.loadApps()
     }
 }

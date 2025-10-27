@@ -1,8 +1,6 @@
 package com.example.myrustore.presentation.screens
 
 import android.util.Log
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +13,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -27,14 +24,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myrustore.domain.AppItem
 import com.example.myrustore.presentation.AppState
 import com.example.myrustore.presentation.AppViewModel
 import com.example.myrustore.presentation.navigation.AppNavGraph
 import com.example.myrustore.presentation.navigation.Screens
 import com.example.myrustore.presentation.navigation.rememberNavigationState
+import com.example.myrustore.presentation.screens.appDetails.AppDetailsScreen
+import com.example.myrustore.presentation.screens.appList.AppListContent
+import com.example.myrustore.presentation.screens.appList.AppListScreen
 import com.example.myrustore.presentation.theme.MyRustoreTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,19 +45,21 @@ fun MainScreen() {
     Log.d("MainScreen", "destination: " + destination.toString())
 
     val appViewModel: AppViewModel = hiltViewModel()
-    val appState by appViewModel.appState.collectAsStateWithLifecycle()
+    val appState = appViewModel.appState.collectAsStateWithLifecycle()
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         modifier = Modifier.then(
-            when(destination){
+            when (destination) {
                 Screens.AppsFeed.route -> {
                     Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
                 }
+
                 Screens.AppCard.route -> {
                     Modifier
                 }
+
                 else -> {
                     Modifier
                 }
@@ -127,24 +127,24 @@ fun MainScreen() {
         }
     ) { paddingValues ->
 
-
-        when (appState) {
+        when (val currentState = appState.value) {
             is AppState.Apps -> {
-                val apps = (appState as AppState.Apps).apps
                 AppNavGraph(
                     modifier = Modifier
                         .padding(paddingValues)
                         .consumeWindowInsets(paddingValues),
                     navController = navigationState.navHostController,
+
                     appsFeed = {
-                        AppsList(
-                            apps = apps,
-                            onAppClick = {
-                                navigationState.navigateToAppCardById(it)
-                            })
+                        AppListScreen(paddingValues)
+//                        AppListContent(
+//                            apps = apps,
+//                            onAppClick = {
+//                                navigationState.navigateToAppCardById(it)
+//                            })
                     },
                     appCard = { appId ->
-                        AppCard(apps.find { it.appId == appId } ?: throw RuntimeException())
+                        AppDetailsScreen(paddingValues)
                     }
                 )
             }

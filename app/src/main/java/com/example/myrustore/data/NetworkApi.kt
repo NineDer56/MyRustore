@@ -1,6 +1,5 @@
 package com.example.myrustore.data
 
-import com.example.myrustore.domain.AppItem
 import javax.inject.Inject
 
 class NetworkApi @Inject constructor() {
