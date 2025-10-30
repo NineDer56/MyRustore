@@ -94,7 +94,8 @@ fun ApplicationItem(
             Text(
                 text = appItem.description,
                 color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                lineHeight = 14.sp
             )
             Text(
                 text = appItem.category.name,
