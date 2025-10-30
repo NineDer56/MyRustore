@@ -4,77 +4,77 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class AppCategory {
+enum class AppCategory(val title : String) {
 
     @SerializedName("Приложения")
-    APP,
+    APP("Приложения"),
 
     @SerializedName("Игры")
-    GAME,
+    GAME("Игры"),
 
     @SerializedName("Производительность")
-    PRODUCTIVITY,
+    PRODUCTIVITY("Производительность"),
 
     @SerializedName("Социальные сети")
-    SOCIAL,
+    SOCIAL("Социальные сети"),
 
     @SerializedName("Общение")
-    MESSAGING,
+    MESSAGING("Общение"),
 
     @SerializedName("Образование")
-    EDUCATION,
+    EDUCATION("Образование"),
 
     @SerializedName("Развлечения")
-    ENTERTAINMENT,
+    ENTERTAINMENT("Развлечения"),
 
     @SerializedName("Музыка")
-    MUSIC,
+    MUSIC("Музыка"),
 
     @SerializedName("Фото и видео")
-    PHOTO_AND_VIDEO,
+    PHOTO_AND_VIDEO("Фото и видео"),
 
     @SerializedName("Фотография")
-    PHOTOGRAPHY,
+    PHOTOGRAPHY("Фотография"),
 
     @SerializedName("Здоровье и фитнес")
-    HEALTH,
+    HEALTH("Здоровье и фитнес"),
 
     @SerializedName("Спорт")
-    SPORTS,
+    SPORTS("Спорт"),
 
     @SerializedName("Новости")
-    NEWS,
+    NEWS("Новости"),
 
     @SerializedName("Книги и справочники")
-    BOOKS,
+    BOOKS("Книги и справочники"),
 
     @SerializedName("Бизнес")
-    BUSINESS,
+    BUSINESS("Бизнес"),
 
     @SerializedName("Финансы")
-    FINANCE,
+    FINANCE("Финансы"),
 
     @SerializedName("Путешествия")
-    TRAVEL,
+    TRAVEL("Путешествия"),
 
     @SerializedName("Карты")
-    MAPS,
+    MAPS("Карты"),
 
     @SerializedName("Еда и напитки")
-    FOOD,
+    FOOD("Еда и напитки"),
 
     @SerializedName("Шопинг")
-    SHOPPING,
+    SHOPPING("Шопинг"),
 
     @SerializedName("Утилиты")
-    UTILITIES,
+    UTILITIES("Утилиты"),
 
     @SerializedName("Навигация")
-    NAVIGATION,
+    NAVIGATION("Навигация"),
 
     @SerializedName("Погода")
-    WEATHER,
+    WEATHER("Погода"),
 
     @SerializedName("Образ жизни")
-    LIFESTYLE
+    LIFESTYLE("Образ жизни")
 }

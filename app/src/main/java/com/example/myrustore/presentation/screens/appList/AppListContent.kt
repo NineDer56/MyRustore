@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -67,25 +68,18 @@ fun ApplicationItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(appItem.iconUrl)
-                .crossfade(true)
-                .listener(
-                    onError = { req, result ->
-                        Log.e(
-                            "AsyncImage",
-                            "Load error for: ${req.data} -> ${result.throwable}"
-                        )
-                    }
-                )
-                .build(),
+            model = appItem.iconUrl,
             contentDescription = null,
             modifier = Modifier
                 .clip(RoundedCornerShape(18.dp))
                 .size(90.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Column{
+        Column(
+            modifier = Modifier
+                .height(90.dp),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ){
             Text(
                 text = appItem.name,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -98,7 +92,7 @@ fun ApplicationItem(
                 lineHeight = 14.sp
             )
             Text(
-                text = appItem.category.name,
+                text = appItem.category.title,
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp
             )
