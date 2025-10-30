@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -31,7 +30,6 @@ import com.example.myrustore.presentation.navigation.AppNavGraph
 import com.example.myrustore.presentation.navigation.Screens
 import com.example.myrustore.presentation.navigation.rememberNavigationState
 import com.example.myrustore.presentation.screens.appDetails.AppDetailsScreen
-import com.example.myrustore.presentation.screens.appList.AppListContent
 import com.example.myrustore.presentation.screens.appList.AppListScreen
 import com.example.myrustore.presentation.theme.MyRustoreTheme
 
@@ -46,6 +44,7 @@ fun MainScreen() {
 
     val appViewModel: AppViewModel = hiltViewModel()
     val appState = appViewModel.appState.collectAsStateWithLifecycle()
+
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -137,11 +136,6 @@ fun MainScreen() {
 
                     appsFeed = {
                         AppListScreen(paddingValues)
-//                        AppListContent(
-//                            apps = apps,
-//                            onAppClick = {
-//                                navigationState.navigateToAppCardById(it)
-//                            })
                     },
                     appCard = { appId ->
                         AppDetailsScreen(paddingValues)

@@ -32,7 +32,7 @@ fun AppListScreen(
                     .background(MaterialTheme.colorScheme.background)
                     .padding(contentPadding),
                 onAppClick = {
-                    TODO()
+
                 }
             )
         }
@@ -40,7 +40,7 @@ fun AppListScreen(
             AppListError(
                 modifier = Modifier.fillMaxSize(),
                 onRefreshClick = {
-                    TODO()
+
                 }
             )
         }

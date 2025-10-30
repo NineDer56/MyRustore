@@ -20,14 +20,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MyRustoreTheme {
+            
                 //MainScreen()
 
                 MyRustoreTheme {
-                    AppDetailsScreen(contentPadding = PaddingValues(12.dp))
+                    AppListScreen(contentPadding = PaddingValues(12.dp))
                 }
 
-            }
+
         }
     }
 }

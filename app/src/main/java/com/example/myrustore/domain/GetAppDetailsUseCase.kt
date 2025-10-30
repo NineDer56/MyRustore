@@ -1,11 +1,12 @@
 package com.example.myrustore.domain
 
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetAppDetailsUseCase @Inject constructor(
     private val repository: AppsRepository
 ) {
-    operator fun invoke(id : String) :AppDetails{
-        TODO()
+    suspend operator fun invoke(id : String) : Flow<AppDetails> {
+        return repository.getAppDetails(id)
     }
 }

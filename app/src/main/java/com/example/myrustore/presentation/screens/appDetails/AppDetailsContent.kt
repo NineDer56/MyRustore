@@ -1,6 +1,5 @@
 package com.example.myrustore.presentation.screens.appDetails
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,11 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.example.myrustore.domain.AppDetails
 import com.example.myrustore.presentation.theme.MyRustoreTheme
 
@@ -44,8 +43,8 @@ fun AppDetailsContent(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                imageVector = appDetails.appImage,
+            AsyncImage(
+                model = appDetails.iconUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .size(172.dp)
@@ -55,11 +54,11 @@ fun AppDetailsContent(
             Spacer(modifier = Modifier.width(16.dp))
 
             AboutApp(
-                appCategory = appDetails.appCategory + " " + appDetails.appId,
-                appName = appDetails.appName,
-                developerName = appDetails.developerName,
-                ageRestrictions = appDetails.ageRestrictions,
-                applicationSize = appDetails.applicationSize,
+                appCategory = appDetails.category.name,
+                appName = appDetails.name,
+                developerName = appDetails.developer,
+                ageRestrictions = appDetails.ageRating.toString(),
+                applicationSize = appDetails.size.toString(),
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -68,12 +67,12 @@ fun AppDetailsContent(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        ScreenShots(appDetails.screenshots)
+        ScreenShots(appDetails.screenshotUrlList)
 
         Spacer(modifier = Modifier.height(20.dp))
 
         AboutApp(
-            appDescription = appDetails.appDescription,
+            appDescription = appDetails.description,
             onReadMoreClick = onReadMoreClick
         )
 
@@ -86,7 +85,7 @@ fun AppDetailsContent(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        AboutDeveloper(appDetails.developerName)
+        AboutDeveloper(appDetails.developer)
 
     }
 }
@@ -111,7 +110,7 @@ private fun AboutDeveloper(developerName: String) {
             )
         }
         Icon(
-            imageVector = Icons.Default.KeyboardArrowRight,
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary
         )
@@ -228,7 +227,7 @@ fun ButtonDownload() {
 
 @Composable
 fun ScreenShots(
-    screenshots: List<ImageVector>
+    screenshots: List<String>
 ) {
     Text(
         text = "Скриншоты",
@@ -242,8 +241,8 @@ fun ScreenShots(
             .fillMaxWidth()
     ) {
         items(screenshots) { imageVector ->
-            Image(
-                imageVector = imageVector,
+            AsyncImage(
+                model = imageVector,
                 contentDescription = null,
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
@@ -261,9 +260,6 @@ private fun PreviewAppCard() {
     MyRustoreTheme(
         darkTheme = true
     ) {
-        AppDetailsContent(
-            appDetails = AppDetails(0),
-            onReadMoreClick = {}
-        )
+
     }
 }

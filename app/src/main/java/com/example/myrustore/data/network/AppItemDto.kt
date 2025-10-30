@@ -1,6 +1,8 @@
-package com.example.myrustore.domain
+package com.example.myrustore.data.network
 
-data class AppItem(
+import com.example.myrustore.domain.AppCategory
+
+data class AppItemDto(
     val id : String,
     val name : String,
     val description : String,
