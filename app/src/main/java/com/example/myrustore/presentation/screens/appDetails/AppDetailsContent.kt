@@ -1,47 +1,64 @@
 package com.example.myrustore.presentation.screens.appDetails
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.example.myrustore.domain.AppCategory
 import com.example.myrustore.domain.AppDetails
 import com.example.myrustore.presentation.theme.MyRustoreTheme
 
 @Composable
 fun AppDetailsContent(
     appDetails: AppDetails,
+    descriptionExpanded: Boolean,
     onReadMoreClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = modifier
+            .verticalScroll(scrollState)
+
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
         ) {
             AsyncImage(
                 model = appDetails.iconUrl,
@@ -54,7 +71,7 @@ fun AppDetailsContent(
             Spacer(modifier = Modifier.width(16.dp))
 
             AboutApp(
-                appCategory = appDetails.category.name,
+                appCategory = appDetails.category.title,
                 appName = appDetails.name,
                 developerName = appDetails.developer,
                 ageRestrictions = appDetails.ageRating.toString(),
@@ -71,12 +88,13 @@ fun AppDetailsContent(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        AboutApp(
+        AppDescription(
             appDescription = appDetails.description,
+            isExpanded = descriptionExpanded,
             onReadMoreClick = onReadMoreClick
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Spacer(
             modifier = Modifier
                 .height(1.dp)
@@ -110,7 +128,7 @@ private fun AboutDeveloper(developerName: String) {
             )
         }
         Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary
         )
@@ -118,8 +136,9 @@ private fun AboutDeveloper(developerName: String) {
 }
 
 @Composable
-private fun AboutApp(
+private fun AppDescription(
     appDescription: String,
+    isExpanded: Boolean,
     onReadMoreClick: () -> Unit
 ) {
     Text(
@@ -130,21 +149,35 @@ private fun AboutApp(
 
     Spacer(modifier = Modifier.height(4.dp))
 
-    Text(
-        text = appDescription,
-        fontSize = 14.sp,
-        color = MaterialTheme.colorScheme.onBackground
-    )
+    AnimatedContent(
+        targetState = isExpanded,
+        transitionSpec = {
+            fadeIn() togetherWith fadeOut()
+        },
+        label = "descriptionExpansion"
+    ) {expanded ->
+        Column {
+            Text(
+                text = appDescription,
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onBackground,
+                maxLines = if (expanded) Int.MAX_VALUE else 3,
+                overflow = TextOverflow.Ellipsis
+            )
 
-    Spacer(modifier = Modifier.height(8.dp))
+            TextButton(
+                onClick = onReadMoreClick,
+                contentPadding = PaddingValues(0.dp)
+            ) {
 
-    Text(
-        text = "Читать подробнее",
-        fontSize = 14.sp,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier
-            .clickable { onReadMoreClick() }
-    )
+                Text(
+                    text = if (expanded) "Свернуть" else "Читать подробнее",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+    }
 }
 
 
@@ -156,25 +189,33 @@ fun AboutApp(
     ageRestrictions: String,
     applicationSize: String
 ) {
-    Column {
+    Column(
+        modifier = Modifier
+            .height(172.dp)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
         Text(
             text = appCategory,
             color = MaterialTheme.colorScheme.secondary,
-            fontSize = 14.sp
+            fontSize = 16.sp
         )
         Text(
             text = appName,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
-            fontSize = 20.sp
+            fontSize = 24.sp
         )
         Text(
             text = developerName,
             color = MaterialTheme.colorScheme.onBackground,
-            fontSize = 14.sp
+            fontSize = 16.sp
         )
 
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+
+            ) {
             TwoTextsInColumn(
                 upperText = ageRestrictions,
                 lowerText = "Возраст"
@@ -199,12 +240,12 @@ private fun TwoTextsInColumn(
         Text(
             text = upperText,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 18.sp,
+            fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
             text = lowerText,
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -260,6 +301,21 @@ private fun PreviewAppCard() {
     MyRustoreTheme(
         darkTheme = true
     ) {
-
+        AppDetailsContent(
+            appDetails = AppDetails(
+                id = "",
+                name = "Гильдия Героев: Экшен ММО РПГ",
+                developer = "developer",
+                category = AppCategory.HEALTH,
+                ageRating = 3,
+                size = 24.5f,
+                iconUrl = "",
+                screenshotUrlList = emptyList(),
+                description = "Calmalist — это менеджер задач и привычек с простым интерфейсом и поддержкой напоминаний. Отслеживайте выполнение дел, создавайте цветовые рубрики, стройте диаграммы прогресса. Поддержка виджетов и тем оформления делает работу приятной в любое время суток. Доступна сортировка и архив старых задач, календарь и отчёты об эффективности. Уведомления не мешают работе, а плавная анимация расслабляет пользователя."
+            ),
+            onReadMoreClick = {},
+            modifier = Modifier.padding(8.dp),
+            descriptionExpanded = false
+        )
     }
 }

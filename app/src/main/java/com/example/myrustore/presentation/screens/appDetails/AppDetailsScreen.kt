@@ -45,8 +45,9 @@ fun AppDetailsScreen(
                     .windowInsetsPadding(WindowInsets.safeDrawing)
                     .background(MaterialTheme.colorScheme.background)
                     .padding(contentPadding),
+                descriptionExpanded = currentState.descriptionExpanded,
                 onReadMoreClick = {
-
+                    viewModel.expandOrCollapseDescription()
                 }
             )
         }

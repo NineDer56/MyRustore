@@ -8,7 +8,7 @@ sealed class AppDetailsState {
     data object Loading : AppDetailsState()
     data class Content(
         val appDetails : AppDetails,
-        val descriptionCollapsed : Boolean
+        val descriptionExpanded : Boolean
     ) : AppDetailsState()
 
 }
