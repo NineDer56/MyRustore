@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.myrustore.presentation.screens.MainScreen
 import com.example.myrustore.presentation.screens.appDetails.AppDetailsLoading
 import com.example.myrustore.presentation.screens.appDetails.AppDetailsScreen
 import com.example.myrustore.presentation.screens.appList.AppListScreen
@@ -20,14 +21,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            
-                //MainScreen()
-
                 MyRustoreTheme {
-                    AppListScreen(contentPadding = PaddingValues(12.dp))
+                    MainScreen()
                 }
-
-
         }
     }
 }

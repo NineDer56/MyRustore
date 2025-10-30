@@ -8,8 +8,8 @@ sealed class Screens(
     data object AppCard : Screens(ROUTE_APP_CARD) {
         private const val ROUTE_FOR_ARGS = "route_app_card"
 
-        fun getRoute(appId : Int) : String{
-            return "${ROUTE_FOR_ARGS}/$appId"
+        fun getRoute(id : String) : String{
+            return "${ROUTE_FOR_ARGS}/$id"
         }
     }
 

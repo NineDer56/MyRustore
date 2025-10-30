@@ -12,7 +12,7 @@ class AppViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _appState =
-        MutableStateFlow<AppState>(AppState.Initial)
+        MutableStateFlow<AppState>(AppState.Loading)
     val appState = _appState.asStateFlow()
 
 

@@ -21,11 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myrustore.presentation.AppState
-import com.example.myrustore.presentation.AppViewModel
 import com.example.myrustore.presentation.navigation.AppNavGraph
 import com.example.myrustore.presentation.navigation.Screens
 import com.example.myrustore.presentation.navigation.rememberNavigationState
@@ -41,9 +37,6 @@ fun MainScreen() {
     val navBackStackEntry = navigationState.navHostController.currentBackStackEntryAsState()
     val destination = navBackStackEntry.value?.destination?.route
     Log.d("MainScreen", "destination: " + destination.toString())
-
-    val appViewModel: AppViewModel = hiltViewModel()
-    val appState = appViewModel.appState.collectAsStateWithLifecycle()
 
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -126,36 +119,28 @@ fun MainScreen() {
         }
     ) { paddingValues ->
 
-        when (val currentState = appState.value) {
-            is AppState.Apps -> {
-                AppNavGraph(
-                    modifier = Modifier
-                        .padding(paddingValues)
-                        .consumeWindowInsets(paddingValues),
-                    navController = navigationState.navHostController,
 
-                    appsFeed = {
-                        AppListScreen(paddingValues)
-                    },
-                    appCard = { appId ->
-                        AppDetailsScreen(paddingValues)
+        AppNavGraph(
+            modifier = Modifier
+                .padding(8.dp)
+                .consumeWindowInsets(paddingValues),
+            navController = navigationState.navHostController,
+
+            appsFeed = {
+                AppListScreen(
+                    contentPadding = paddingValues,
+                    onAppClick = { id ->
+                        navigationState.navigateToAppCardById(id)
                     }
                 )
+            },
+            appCard = { id ->
+                AppDetailsScreen(
+                    contentPadding = paddingValues,
+                    id = id
+                )
             }
-
-            AppState.Initial -> {
-
-            }
-
-            AppState.Error -> {
-
-            }
-
-            AppState.Loading -> {
-
-            }
-        }
-
+        )
     }
 }
 

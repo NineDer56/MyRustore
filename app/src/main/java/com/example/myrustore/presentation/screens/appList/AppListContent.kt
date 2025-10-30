@@ -32,7 +32,7 @@ import com.example.myrustore.presentation.theme.MyRustoreTheme
 @Composable
 fun AppListContent(
     apps : List<AppItem>,
-    onAppClick : (appId : Int) -> Unit,
+    onAppClick : (id : String) -> Unit,
     modifier: Modifier = Modifier
 ) {
    LazyColumn(
@@ -53,12 +53,16 @@ fun AppListContent(
 @Composable
 fun ApplicationItem(
     appItem : AppItem,
-    onAppClick : (appId : Int) -> Unit
+    onAppClick : (id : String) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = {})
+            .clickable(
+                onClick = {
+                    onAppClick(appItem.id)
+                }
+            )
         ,
         verticalAlignment = Alignment.CenterVertically
     ) {

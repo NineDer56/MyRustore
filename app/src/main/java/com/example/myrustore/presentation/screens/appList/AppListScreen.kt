@@ -15,7 +15,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun AppListScreen(
-    contentPadding : PaddingValues
+    contentPadding : PaddingValues,
+    onAppClick : (id : String) -> Unit
 ) {
 
     val viewModel : AppListViewModel = hiltViewModel()
@@ -31,9 +32,7 @@ fun AppListScreen(
                     .windowInsetsPadding(WindowInsets.safeDrawing)
                     .background(MaterialTheme.colorScheme.background)
                     .padding(contentPadding),
-                onAppClick = {
-
-                }
+                onAppClick = onAppClick
             )
         }
         is AppListState.Error -> {
