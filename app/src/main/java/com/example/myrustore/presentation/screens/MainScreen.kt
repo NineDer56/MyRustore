@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -91,7 +92,7 @@ fun MainScreen() {
                                 }
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.ArrowBack,
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.primary
                                 )
