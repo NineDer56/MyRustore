@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -217,12 +219,12 @@ fun AboutApp(
 
             ) {
             TwoTextsInColumn(
-                upperText = ageRestrictions,
+                upperText = "$ageRestrictions+",
                 lowerText = "Возраст"
             )
             Spacer(Modifier.width(16.dp))
             TwoTextsInColumn(
-                upperText = applicationSize,
+                upperText = "$applicationSize MB",
                 lowerText = "Размер"
             )
         }
@@ -278,17 +280,19 @@ fun ScreenShots(
     Spacer(modifier = Modifier.height(8.dp))
     LazyRow(
         modifier = Modifier
-            .height(120.dp)
-            .fillMaxWidth()
+            .height(280.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+
     ) {
         items(screenshots) { imageVector ->
             AsyncImage(
                 model = imageVector,
                 contentDescription = null,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Color.Red)
-                    .fillParentMaxSize()
+                    .width(240.dp)
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(16.dp)),
+                contentScale = ContentScale.FillHeight
             )
         }
     }
