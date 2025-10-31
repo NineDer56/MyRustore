@@ -96,4 +96,15 @@ dependencies {
 
     // Turbine
     testImplementation("app.cash.turbine:turbine:1.1.0")
+
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    // Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx)
+    // Test helpers
+    testImplementation(libs.androidx.room.testing)
+
+
 }
