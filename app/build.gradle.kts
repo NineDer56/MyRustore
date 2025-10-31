@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,4 +81,19 @@ dependencies {
 
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+
+    // JUnit 5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0")
+
+    // MockK — для моков
+    testImplementation("io.mockk:mockk:1.13.12")
+
+    // Truth — для удобных assert-ов
+    testImplementation("com.google.truth:truth:1.4.4")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+
+    // Turbine
+    testImplementation("app.cash.turbine:turbine:1.1.0")
 }
