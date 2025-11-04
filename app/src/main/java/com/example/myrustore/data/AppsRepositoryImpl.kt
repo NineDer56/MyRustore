@@ -20,7 +20,8 @@ class AppsRepositoryImpl @Inject constructor(
     private val databaseMapper: DatabaseMapper,
     private val dao: AppDao
 ) : AppsRepository {
-
+    // TODO довести реализацию до идеала
+    //TODO тесты
     override suspend fun getAppList(): Flow<List<AppItem>> {
         return dao.getAllAppItems().map { entityList ->
             if (entityList.isNotEmpty()) {

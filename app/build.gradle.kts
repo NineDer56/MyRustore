@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.ksp)
 
     id("com.google.dagger.hilt.android")
-}
+    id("de.mannodermaus.android-junit5") version "1.14.0.0"}
 
 android {
     namespace = "com.example.myrustore"
