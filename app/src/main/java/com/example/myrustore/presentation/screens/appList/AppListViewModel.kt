@@ -30,11 +30,9 @@ class AppListViewModel @Inject constructor(
             getAppListUseCase()
                 .catch {
                     _state.value = AppListState.Error
-                    Log.d("AppListViewModel", "Error ${it.message}")
                 }
                 .collect{
                     _state.value = AppListState.Content(it)
-                    Log.d("AppListViewModel", "${it}")
                 }
         }
 
