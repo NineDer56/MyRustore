@@ -1,6 +1,5 @@
 package com.example.myrustore.presentation.screens.appList
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myrustore.domain.GetAppListUseCase
@@ -24,9 +23,9 @@ class AppListViewModel @Inject constructor(
     }
 
     private fun getAppList(){
-        _state.value = AppListState.Loading
-
         viewModelScope.launch {
+            _state.value = AppListState.Loading
+
             getAppListUseCase()
                 .catch {
                     _state.value = AppListState.Error

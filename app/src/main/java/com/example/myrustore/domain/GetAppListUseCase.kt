@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetAppListUseCase @Inject constructor(
     private val repository: AppsRepository
 ) {
-    suspend operator fun invoke() : Flow<List<AppItem>> {
+    operator fun invoke() : Flow<List<AppItem>> {
         return repository.getAppList()
     }
 }

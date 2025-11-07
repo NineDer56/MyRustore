@@ -8,7 +8,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,8 +36,9 @@ class AppDetailsViewModel @Inject constructor(
 
     fun getAppDetails(id : String){
         getAppDetailsJob?.cancel()
-        _state.value = AppDetailsState.Loading
         getAppDetailsJob = viewModelScope.launch {
+            _state.value = AppDetailsState.Loading
+
             getAppDetailsUseCase(id)
                 .catch {
                     _state.value = AppDetailsState.Error

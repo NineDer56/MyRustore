@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetAppDetailsUseCase @Inject constructor(
     private val repository: AppsRepository
 ) {
-    suspend operator fun invoke(id : String) : Flow<AppDetails> {
+    operator fun invoke(id : String) : Flow<AppDetails> {
         return repository.getAppDetails(id)
     }
 }
