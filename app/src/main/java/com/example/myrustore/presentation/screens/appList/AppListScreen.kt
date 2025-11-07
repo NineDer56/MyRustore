@@ -39,7 +39,7 @@ fun AppListScreen(
             AppListError(
                 modifier = Modifier.fillMaxSize(),
                 onRefreshClick = {
-
+                    viewModel.getAppList()
                 }
             )
         }

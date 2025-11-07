@@ -22,7 +22,7 @@ class AppListViewModel @Inject constructor(
         getAppList()
     }
 
-    private fun getAppList(){
+    fun getAppList(){
         viewModelScope.launch {
             _state.value = AppListState.Loading
 
