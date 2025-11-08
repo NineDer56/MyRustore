@@ -8,14 +8,17 @@ import com.example.myrustore.domain.AppDetails
 import com.example.myrustore.domain.AppItem
 import com.example.myrustore.domain.AppsRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.random.Random
 
 class AppsRepositoryImpl @Inject constructor(
     private val networkApi: NetworkApi,
@@ -90,5 +93,13 @@ class AppsRepositoryImpl @Inject constructor(
                 appDetailsWithScreenshots
             }
             .flowOn(Dispatchers.IO)
+    }
+
+    override fun downloadApp(id: String): Flow<Int> = flow {
+        repeat(100){
+            val randomDelay = Random.nextLong(10, 100)
+            delay(randomDelay)
+            emit(it)
+        }
     }
 }

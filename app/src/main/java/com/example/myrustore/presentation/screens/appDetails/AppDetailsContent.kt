@@ -49,6 +49,8 @@ fun AppDetailsContent(
     appDetails: AppDetails,
     descriptionExpanded: Boolean,
     onReadMoreClick: () -> Unit,
+    onButtonDownloadClick: () -> Unit,
+    downloadState: DownloadState,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -82,7 +84,10 @@ fun AppDetailsContent(
         }
         Spacer(modifier = Modifier.height(20.dp))
 
-        ButtonDownload()
+        ButtonDownload(
+            onButtonDownloadClick = onButtonDownloadClick,
+            downloadState = downloadState
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -157,7 +162,7 @@ private fun AppDescription(
             fadeIn() togetherWith fadeOut()
         },
         label = "descriptionExpansion"
-    ) {expanded ->
+    ) { expanded ->
         Column {
             Text(
                 text = appDescription,
@@ -255,16 +260,58 @@ private fun TwoTextsInColumn(
 
 
 @Composable
-fun ButtonDownload() {
+fun ButtonDownload(
+    onButtonDownloadClick: () -> Unit,
+    downloadState: DownloadState
+) {
+    when (downloadState) {
+        is DownloadState.Initial -> {
+            ButtonDownloadStandard(
+                onButtonDownloadClick = onButtonDownloadClick,
+                text = "Скачать"
+            )
+        }
+
+        is DownloadState.Prepare -> {
+            ButtonDownloadStandard(
+                onButtonDownloadClick = onButtonDownloadClick,
+                text = "Подготовка"
+            )
+        }
+
+        is DownloadState.Loading -> {
+            ButtonDownloadStandard(
+                onButtonDownloadClick = onButtonDownloadClick,
+                text = "${downloadState.percent}%"
+            )
+        }
+
+        is DownloadState.Finish -> {
+            ButtonDownloadStandard(
+                onButtonDownloadClick = onButtonDownloadClick,
+                text = "Установить"
+            )
+        }
+    }
+
+
+}
+
+@Composable
+private fun ButtonDownloadStandard(
+    onButtonDownloadClick: () -> Unit,
+    text: String
+) {
     Button(
-        onClick = {},
+        onClick = onButtonDownloadClick,
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Установить",
+            text = text,
             color = MaterialTheme.colorScheme.onPrimary
         )
     }
+
 }
 
 
@@ -318,6 +365,8 @@ private fun PreviewAppCard() {
                 description = "Calmalist — это менеджер задач и привычек с простым интерфейсом и поддержкой напоминаний. Отслеживайте выполнение дел, создавайте цветовые рубрики, стройте диаграммы прогресса. Поддержка виджетов и тем оформления делает работу приятной в любое время суток. Доступна сортировка и архив старых задач, календарь и отчёты об эффективности. Уведомления не мешают работе, а плавная анимация расслабляет пользователя."
             ),
             onReadMoreClick = {},
+            onButtonDownloadClick = {},
+            downloadState = DownloadState.Initial,
             modifier = Modifier.padding(8.dp),
             descriptionExpanded = false
         )

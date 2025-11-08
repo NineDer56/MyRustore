@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,13 +23,14 @@ fun AppDetailsScreen(
 ){
     // TODO нажатие на кнопку "перезагрузить" после появления интернета приводит к тому что скриншоты могут не загрузиться, нужно переделать dao
     val viewModel : AppDetailsViewModel = hiltViewModel()
-    val state = viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val downloadState by viewModel.downloadState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getAppDetails(id)
     }
 
-    when(val currentState = state.value){
+    when(val currentState = state){
         is AppDetailsState.Loading -> {
             Log.d("Debug", currentState.toString())
             AppDetailsLoading(
@@ -48,7 +50,11 @@ fun AppDetailsScreen(
                 descriptionExpanded = currentState.descriptionExpanded,
                 onReadMoreClick = {
                     viewModel.expandOrCollapseDescription()
-                }
+                },
+                onButtonDownloadClick = {
+                    viewModel.downloadApp(id)
+                },
+                downloadState = downloadState
             )
         }
 

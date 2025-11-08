@@ -8,4 +8,5 @@ interface AppsRepository {
 
     fun getAppDetails(id : String) : Flow<AppDetails>
 
+    fun downloadApp(id : String) : Flow<Int>
 }
