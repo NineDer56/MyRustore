@@ -1,7 +1,12 @@
 package com.example.myrustore.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface AppsRepository {
 
-    fun loadApps() : List<AppItem>
+    fun getAppList() : Flow<List<AppItem>>
 
+    fun getAppDetails(id : String) : Flow<AppDetails>
+
+    fun downloadApp(id : String) : Flow<Int>
 }

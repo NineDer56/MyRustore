@@ -13,7 +13,7 @@ fun AppNavGraph(
     modifier: Modifier,
     navController: NavHostController,
     appsFeed: @Composable () -> Unit,
-    appCard: @Composable (appId : Int) -> Unit
+    appCard: @Composable (id : String) -> Unit
 ) {
 
     NavHost(
@@ -32,11 +32,11 @@ fun AppNavGraph(
             route = Screens.AppCard.route,
             arguments = listOf(
                 navArgument(Screens.KEY_APP_CARD_ID) {
-                    type = NavType.IntType
+                    type = NavType.StringType
                 }
             )
         ) {
-            val appId = it.arguments?.getInt(Screens.KEY_APP_CARD_ID)
+            val appId = it.arguments?.getString(Screens.KEY_APP_CARD_ID)
                 ?: throw RuntimeException("No id with key Screens.KEY_APP_CARD_ID")
             appCard(appId)
         }
