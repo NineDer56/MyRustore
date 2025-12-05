@@ -21,7 +21,6 @@ fun AppDetailsScreen(
     contentPadding : PaddingValues,
     id : String
 ){
-    // TODO нажатие на кнопку "перезагрузить" после появления интернета приводит к тому что скриншоты могут не загрузиться, нужно переделать dao
     val viewModel : AppDetailsViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val downloadState by viewModel.downloadState.collectAsStateWithLifecycle()
